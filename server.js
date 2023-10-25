@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const api = require('./Develop/routes/index.js');
+const api = require('./routes/index.js');
 //const {clog} = require('.middleware/clog'); //tbd if i want this
 
 const PORT = process.env.PORT || 3001; //will want to change this with Heroku
@@ -16,7 +16,7 @@ app.use(express.static('public')); //serve static assets from public
 
 // GET Route for homepage
 app.get('/', (req, res) => 
-    res.sendFile(path.join(__dirname, '/public.index.html'))
+    res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
 // GET Route for notes page
