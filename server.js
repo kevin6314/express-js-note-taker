@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const api = require('./routes/index.js');
+const api = require('./Develop/routes/index.js');
 //const {clog} = require('.middleware/clog'); //tbd if i want this
 
 const PORT = 3001; //will want to change this with Heroku
