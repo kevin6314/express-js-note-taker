@@ -58,6 +58,7 @@ const renderActiveNote = () => {
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
+    noteText.value = activeNote.noteId;
   } else {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
@@ -90,8 +91,10 @@ const handleNoteDelete = (e) => {
   }
 
   deleteNote(noteId).then(() => {
+    //console.log(noteId);
     getAndRenderNotes();
     renderActiveNote();
+    
   });
 };
 
@@ -160,7 +163,7 @@ const renderNoteList = async (notes) => {
 
   jsonNotes.forEach((note) => {
     const li = createLi(note.title);
-    li.dataset.note = JSON.stringify(note);
+    li.dataset.note = JSON.stringify({...note, id: note.noteId});
 
     noteListItems.push(li);
   });

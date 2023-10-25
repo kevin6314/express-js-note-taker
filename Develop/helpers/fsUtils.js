@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { parse } = require('path');
 const util = require('util');
 
 // Promise version of fs.readFile
@@ -31,4 +32,22 @@ const readAndAppend = (content, file) => {
   });
 };
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+const readAndDeleteByNoteId = (noteId, file) => {
+  fs.readFile(file, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      let parsedData = JSON.parse(data);
+      const index = parsedData.findIndex(item => item.noteId === noteId);
+      if (index !== -1) {
+        parsedData.splice(index, 1);
+        writeToFile(file, parsedData);
+        console.log(`NoteId ${noteId} deleted successfully`);
+      } else {
+        console.log(`NoteId ${noteId} not found`)
+      }
+    }
+  })
+}
+
+module.exports = { readFromFile, writeToFile, readAndAppend, readAndDeleteByNoteId};

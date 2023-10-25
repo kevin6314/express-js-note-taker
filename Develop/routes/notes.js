@@ -1,5 +1,5 @@
 const notes = require('express').Router();
-const {readFromFile, readAndAppend} = require('../helpers/fsUtils');
+const {readFromFile, readAndAppend, readAndDeleteByNoteId} = require('../helpers/fsUtils');
 const uuid = require('../helpers/uuid');
 
 //GET route to retrieve all the notes
@@ -32,8 +32,15 @@ notes.post('/', (req, res) => {
     }
 });
 
-notes.delete('/', (req, res) => {
-    
+notes.delete('/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
+
+    if (noteId) {
+        readAndDeleteByNoteId(noteId, './db/db.json');
+        res.json({status: 'success', message: `note ${noteId} deleted`})
+    } else {
+        res.status(400).json({status: 'error', message: `Invalid noteId`})
+    }
 })
 
 module.exports = notes;
