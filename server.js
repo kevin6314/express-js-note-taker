@@ -3,7 +3,7 @@ const path = require('path');
 const api = require('./Develop/routes/index.js');
 //const {clog} = require('.middleware/clog'); //tbd if i want this
 
-const PORT = 3001; //will want to change this with Heroku
+const PORT = process.env.PORT || 3001; //will want to change this with Heroku
 
 const app = express();
 
